@@ -1,0 +1,36 @@
+# Core Dependencies
+python-dotenv
+requests
+asyncio
+
+# Data Handling
+pandas
+numpy
+
+# Sentiment Analysis
+nltk
+transformers
+torch
+
+# Machine Learning
+scikit-learn
+datasets
+
+# Visualization
+matplotlib
+plotly
+
+# Dashboard and Web Server
+flask
+flask-socketio
+dash
+gunicorn
+
+# Backtesting
+backtrader
+
+# Testing
+pytest
+
+# Logging and Monitoring
+prometheus_client
