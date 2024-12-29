@@ -31,7 +31,7 @@
 -  `backtrader` → Backtesting  
 **API Integration:** Kraken REST API  
 **Hosting Platform:** Render  
-#   Structure
+#  Structure
 ```plaintext
 /Stock-Trading-Bot/
 ├── config/          # API keys, global settings
@@ -48,5 +48,8 @@
 ├── bot.py           # Main trading bot controller
 ├── requirements.txt # Dependencies
 └── README.md        # Documentation
+
+
+
 
 
