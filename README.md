@@ -56,7 +56,7 @@ python bot.py
 cd modules/dashboard
 python app.py
 ```
--Access at: http://127.0.0.1:5000/
+Access at: http://127.0.0.1:5000/
 
 
 
