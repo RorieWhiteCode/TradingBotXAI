@@ -23,19 +23,16 @@
    - Enhance metrics like **Sharpe Ratio**, **Max Drawdown**, and **Win Rate**.
 #   Libraries
 **Language:** Python 3.x  
+**API Integration:** Kraken REST API  
+**Hosting Platform:** Render
 **Key Libraries:**  
 -  `pandas`, `numpy` → Data Handling  
 -  `nltk`, `transformers`, `torch` → Sentiment Analysis  
 -  `scikit-learn` → Machine Learning  
 -  `flask`, `dash`, `plotly` → Dashboard & Visualization  
 -  `backtrader` → Backtesting  
-**API Integration:** Kraken REST API  
-**Hosting Platform:** Render
-
 ## Dependencies
-
 To install all required dependencies, run:
-
 ```bash
 pip install -r requirements.txt
 ```
