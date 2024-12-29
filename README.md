@@ -1,16 +1,19 @@
+# 🚀 Core Features
 
+- **🛠️ API Connectivity:**  
+   - Seamlessly integrates with **Kraken's API** for **order execution** and **data retrieval**.
 
-##Core Features
+- **🧠 Sentiment Analysis:**  
+   - Uses **pre-trained NLP models** (e.g., **FinBERT**) for **sentiment scoring**.
 
--API Connectivity: Seamlessly integrates with Kraken's API for order execution and data retrieval.
--Sentiment Analysis: Uses pre-trained NLP models (e.g., FinBERT) for sentiment scoring.
--Technical Indicators: Implements classic strategies (e.g., RSI, Moving Average).
--Risk Management: Ensures stop-loss, exposure limits, and position sizing.
--Backtesting: Validate strategies using historical data.
--Real-time Dashboard: Monitor portfolio metrics, live trades, and sentiment signals.
+- **📊 Technical Indicators:**  
+   - Implements classic strategies such as **RSI** and **Moving Average**.
 
-#Future Focus
+- **🛡️ Risk Management:**  
+   - Ensures **stop-loss**, **exposure limits**, and **position sizing** for controlled trading.
 
-Advanced Machine Learning Models for predictive analytics.
-Integration of historical markers for smarter decision-making.
-Dynamic weighting mechanisms for sentiment and technical indicators.
+- **📉 Backtesting:**  
+   - Validate strategies using **historical data** to ensure performance before live trading.
+
+- **🖥️ Real-time Dashboard:**  
+   - Monitor **portfolio metrics**, **live trades**, and **sentiment signals** via an interactive dashboard.
