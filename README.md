@@ -36,10 +36,9 @@
 
 To install all required dependencies, run:
 
-'''text
+```bash
 pip install -r requirements.txt
-
-
+```
 ## Structure
 ```text
 /Stock-Trading-Bot/
