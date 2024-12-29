@@ -21,7 +21,7 @@
    - Create **adaptive weighting systems** for sentiment and technical indicators.
 - **📊 Improved Backtesting Framework:**  
    - Enhance metrics like **Sharpe Ratio**, **Max Drawdown**, and **Win Rate**.
-#   Key Libraries
+#   Libraries
 **Language:** Python 3.x  
 **Key Libraries:**  
 -  `pandas`, `numpy` → Data Handling  
