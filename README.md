@@ -48,3 +48,12 @@
 ├── bot.py           # Main trading bot controller
 ├── requirements.txt # Dependencies
 └── README.md        # Documentation
+---
+##  **Quick Setup**
+```markdown
+#  Quick Setup
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/Stock-Trading-Bot.git
+   cd Stock-Trading-Bot
+
