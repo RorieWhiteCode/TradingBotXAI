@@ -21,4 +21,13 @@
    - Create **adaptive weighting systems** for sentiment and technical indicators.
 - **📊 Improved Backtesting Framework:**  
    - Enhance metrics like **Sharpe Ratio**, **Max Drawdown**, and **Win Rate**.
-
+#   Key Libraries
+**Language:** Python 3.x  
+**Key Libraries:**  
+-  `pandas`, `numpy` → Data Handling  
+-  `nltk`, `transformers`, `torch` → Sentiment Analysis  
+-  `scikit-learn` → Machine Learning  
+-  `flask`, `dash`, `plotly` → Dashboard & Visualization  
+-  `backtrader` → Backtesting  
+**API Integration:** Kraken REST API  
+**Hosting Platform:** Render  
