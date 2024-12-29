@@ -1,8 +1,8 @@
 
 #   Core Features
-- **🛠️ API Connectivity:**  
+- ** API Connectivity:**  
    - Seamlessly integrates with **Kraken's API** for **order execution** and **data retrieval**.
-- **🧠 Sentiment Analysis:**  
+- **Sentiment Analysis:**  
    - Uses **pre-trained NLP models** (e.g., **FinBERT**) for **sentiment scoring**.
 - **📊 Technical Indicators:**  
    - Implements classic strategies such as **RSI** and **Moving Average**.
