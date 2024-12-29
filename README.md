@@ -56,5 +56,7 @@ pip install -r requirements.txt
 ├── bot.py           # Main trading bot controller
 ├── requirements.txt # Dependencies
 └── README.md        # Documentation
+```
+
 
 
