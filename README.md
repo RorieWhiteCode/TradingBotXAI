@@ -33,7 +33,7 @@
 -  `flask`, `dash`, `plotly` → Dashboard & Visualization  
 -  `backtrader` → Backtesting
   
-## Dependencies
+## Setting up
 To install all required dependencies, run:
 ```bash
 pip install -r requirements.txt
