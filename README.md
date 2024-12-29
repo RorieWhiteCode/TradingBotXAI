@@ -39,19 +39,19 @@ To install all required dependencies, run:
 pip install -r requirements.txt
 ```
 
-#Set Environment Variables
+## Set Environment Variables
 ```plaintext
 KRAKEN_API_KEY=your_api_key
 KRAKEN_PRIVATE_KEY=your_private_key
 DEPLOYMENT_ENV=development
 ```
 
-#Run Bot Locally
+## Run Bot Locally
 ```bash
 python bot.py
 ```
 
-#Launch Dashboard
+## Launch Dashboard
 ```bash
 cd modules/dashboard
 python app.py
