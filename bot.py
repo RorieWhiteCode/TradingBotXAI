@@ -1,7 +1,6 @@
 # bot.py
 import time
 from strategy.strategy import TradingStrategy
-
 from portfolio import PortfolioManager
 from trade_executor import TradeExecutor
 from risk_manager import RiskManager
