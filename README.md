@@ -25,6 +25,7 @@
 **Language:** Python 3.x  
 **API Integration:** Kraken REST API  
 **Hosting Platform:** Render
+
 **Key Libraries:**  
 -  `pandas`, `numpy` → Data Handling  
 -  `nltk`, `transformers`, `torch` → Sentiment Analysis  
