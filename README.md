@@ -50,21 +50,3 @@
 └── README.md        # Documentation
 
 
-
-- Make sure there’s no additional content **immediately after** this block.
-
----
-
-### ✅ **For the Quick Setup**
-
-Start a **new code block** explicitly for each programming language used (`bash` for terminal commands).
-
-```markdown
-## Quick Setup
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/your-username/Stock-Trading-Bot.git
-cd Stock-Trading-Bot
-
