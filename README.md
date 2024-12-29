@@ -36,6 +36,9 @@
 
 To install all required dependencies, run:
 
+'''text
+pip install -r requirements.txt
+
 
 ## Structure
 ```text
