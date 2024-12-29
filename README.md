@@ -48,8 +48,10 @@
 ├── bot.py           # Main trading bot controller
 ├── requirements.txt # Dependencies
 └── README.md        # Documentation
+
+
 ---
-##   **Quick Setup**
+##   Quick Setup
 ```markdown
 #  Quick Setup
 1. **Clone the Repository:**
