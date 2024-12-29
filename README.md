@@ -30,7 +30,15 @@
 -  `flask`, `dash`, `plotly` → Dashboard & Visualization  
 -  `backtrader` → Backtesting  
 **API Integration:** Kraken REST API  
-**Hosting Platform:** Render  
+**Hosting Platform:** Render
+
+#   Dependencies
+pip install -r requirements.txt
+
+
+
+
+
 #  Structure
 ```plaintext
 /Stock-Trading-Bot/
