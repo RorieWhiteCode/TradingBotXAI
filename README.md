@@ -1,5 +1,5 @@
 
-#                                                                   Core Features
+#Core Features
 - **🛠️ API Connectivity:**  
    - Seamlessly integrates with **Kraken's API** for **order execution** and **data retrieval**.
 - **🧠 Sentiment Analysis:**  
@@ -12,3 +12,13 @@
    - Validate strategies using **historical data** to ensure performance before live trading.
 - **🖥️ Real-time Dashboard:**  
    - Monitor **portfolio metrics**, **live trades**, and **sentiment signals** via an interactive dashboard.
+#  Future Focus
+- **🤖 Advanced Machine Learning Models:**  
+   - Implement **predictive analytics** using state-of-the-art ML algorithms.
+- **📈 Integration of Historical Markers:**  
+   - Utilize **historical trading patterns** for smarter decision-making.
+- **⚖️ Dynamic Weighting Mechanisms:**  
+   - Create **adaptive weighting systems** for sentiment and technical indicators.
+- **📊 Improved Backtesting Framework:**  
+   - Enhance metrics like **Sharpe Ratio**, **Max Drawdown**, and **Win Rate**.
+
