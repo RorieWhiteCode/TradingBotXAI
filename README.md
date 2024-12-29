@@ -1,5 +1,5 @@
 
-#                                                           Core Features
+#                                                                   Core Features
 - **🛠️ API Connectivity:**  
    - Seamlessly integrates with **Kraken's API** for **order execution** and **data retrieval**.
 - **🧠 Sentiment Analysis:**  
