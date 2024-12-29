@@ -31,3 +31,22 @@
 -  `backtrader` → Backtesting  
 **API Integration:** Kraken REST API  
 **Hosting Platform:** Render  
+#   Structure
+# 📂 Project Structure
+
+```plaintext
+/Stock-Trading-Bot/
+├── config/          # API keys, global settings
+├── data/            # Historical and live data storage
+├── modules/         
+│   ├── sentiment/   # Sentiment analysis logic
+│   ├── backtesting/ # Strategy validation tools
+│   ├── ml/          # ML training and inference
+│   ├── strategy/    # Trading strategies
+│   ├── execution/   # Trade execution and data handling
+│   ├── dashboard/   # Real-time dashboard
+├── tests/           # Unit and integration tests
+├── logs/            # Trade and error logs
+├── bot.py           # Main trading bot controller
+├── requirements.txt # Dependencies
+└── README.md        # Documentation
