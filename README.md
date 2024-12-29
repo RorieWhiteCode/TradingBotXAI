@@ -36,12 +36,8 @@
 
 To install all required dependencies, run:
 
-```bash
-pip install -r requirements.txt
-```markdown
 
 ## Structure
-
 ```text
 /Stock-Trading-Bot/
 ├── config/          # API keys, global settings
