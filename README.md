@@ -1,3 +1,8 @@
+
+
+
+<small>
+
 # 🚀 Core Features
 
 - **🛠️ API Connectivity:**  
@@ -17,3 +22,4 @@
 
 - **🖥️ Real-time Dashboard:**  
    - Monitor **portfolio metrics**, **live trades**, and **sentiment signals** via an interactive dashboard.
+</small>
