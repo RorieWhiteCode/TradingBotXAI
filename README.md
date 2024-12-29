@@ -32,8 +32,6 @@
 **API Integration:** Kraken REST API  
 **Hosting Platform:** Render  
 #   Structure
-#   Project Structure
-
 ```plaintext
 /Stock-Trading-Bot/
 ├── config/          # API keys, global settings
