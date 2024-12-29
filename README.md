@@ -32,8 +32,13 @@
 **API Integration:** Kraken REST API  
 **Hosting Platform:** Render
 
-#   Dependencies
+## Dependencies
+
+To install all required dependencies, run:
+
+```bash
 pip install -r requirements.txt
+
 
 
 
