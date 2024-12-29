@@ -32,7 +32,7 @@
 **API Integration:** Kraken REST API  
 **Hosting Platform:** Render  
 #   Structure
-# 📂 Project Structure
+#   Project Structure
 
 ```plaintext
 /Stock-Trading-Bot/
