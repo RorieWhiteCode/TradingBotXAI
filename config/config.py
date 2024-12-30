@@ -1,8 +1,18 @@
 # ============================================
 # Kraken API Credentials
 # ============================================
-API_KEY = "your_api_key_here"  # Replace with your Kraken API Key
+API_KEY = "your_api_key_here"
 API_SECRET = "your_api_secret_here"  # Replace with your Kraken API Secret
+
+# Toggle between 'live', 'paper_trade', 'mock'
+TRADING_MODE = "mock"  # Modes: 'live', 'paper_trade', 'mock'
+
+# API Endpoint Configuration
+API_URL = (
+    "https://api.kraken.com" if TRADING_MODE == "live" 
+    else "https://api.demo.kraken.com" if TRADING_MODE == "paper_trade" 
+    else "http://localhost/mock_api"
+)
 
 # ============================================
 # Portfolio and Leverage Settings
@@ -36,6 +46,7 @@ RISK_PER_TRADE = 0.02  # 2% risk per trade
 # ============================================
 ENABLE_LOGGING = True  # Enable or disable logging
 LOG_FILE = "./logs/tradebot.log"  # Log file location
+
 NOTIFICATIONS = {
     "email": False,
     "telegram": True,
@@ -47,4 +58,21 @@ NOTIFICATIONS = {
 # ============================================
 ORDER_TYPE = "market"  # Default order type ('market' or 'limit')
 API_CALL_DELAY = 1  # Delay between API calls (in seconds)
-TRADING_MODE = "live"  # Modes: 'live', 'paper_trade', 'backtest'
+
+# ============================================
+# Mock and Data Paths
+# ============================================
+import os
+
+BASE_DATA_PATH = os.path.join(os.getcwd(), 'data')
+HISTORICAL_DATA_PATH = os.path.join(BASE_DATA_PATH, 'historical')
+LIVE_DATA_PATH = os.path.join(BASE_DATA_PATH, 'live')
+MOCK_DATA_PATH = os.path.join(BASE_DATA_PATH, 'mock')
+MODEL_DATA_PATH = os.path.join(BASE_DATA_PATH, 'models')
+
+# Ensure paths exist
+os.makedirs(BASE_DATA_PATH, exist_ok=True)
+os.makedirs(HISTORICAL_DATA_PATH, exist_ok=True)
+os.makedirs(LIVE_DATA_PATH, exist_ok=True)
+os.makedirs(MOCK_DATA_PATH, exist_ok=True)
+os.makedirs(MODEL_DATA_PATH, exist_ok=True)
