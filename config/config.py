@@ -6,17 +6,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv('API_KEY')
-API_SECRET = os.getenv('API_SECRET')
+API_KEY = os.getenv('KRAKEN_API_KEY')
+API_SECRET = os.getenv('KRAKEN_PRIVATE_KEY')
 TRADING_MODE = os.getenv('TRADING_MODE', 'mock')
 
-# API Endpoint Configuration
-API_URL = (
-    "https://api.kraken.com" if TRADING_MODE == "live" 
-    else "https://api.demo.kraken.com" if TRADING_MODE == "paper_trade" 
-    else "http://localhost/mock_api"
-)
-
+# Set API URL based on mode
+if TRADING_MODE == "mock":
+    API_URL = "http://localhost/mock_api"
+elif TRADING_MODE == "paper_trade":
+    API_URL = os.getenv('API_URL', 'https://demo-futures.kraken.com')
+elif TRADING_MODE == "live":
+    API_URL = "https://futures.kraken.com"
 # ============================================
 # Portfolio and Leverage Settings
 # ============================================
