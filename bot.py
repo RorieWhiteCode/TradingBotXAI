@@ -1,9 +1,12 @@
 # bot.py
 import time
-from strategy.strategy import TradingStrategy
+from sentiment import SentimentModel, Collector
+from backtesting import Backtester
+from ml import TrainModel, EvaluateModel
+from strategy import TradingStrategy
 from portfolio import PortfolioManager
-from trade_executor import TradeExecutor
-from risk_manager import RiskManager
+from execution import TradeExecutor
+from dashboard import DashboardApp
 from config import TRADING_MODE, API_CALL_DELAY
 
 class TradingBot:
