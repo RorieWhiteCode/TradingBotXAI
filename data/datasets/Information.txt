@@ -1,0 +1,1 @@
+These two datasets contain the historical pricing of ADA and LTC and contains the Price, Open, Low, Vol and Change %
