@@ -44,6 +44,7 @@ pip install -r requirements.txt
 KRAKEN_API_KEY=your_api_key
 KRAKEN_PRIVATE_KEY=your_private_key
 DEPLOYMENT_ENV=development
+TRAINING_MODE = mock
 ```
 
 ## Run Bot Locally
