@@ -1,11 +1,14 @@
 # ============================================
 # Kraken API Credentials
 # ============================================
-API_KEY = "your_api_key_here"
-API_SECRET = "your_api_secret_here"  # Replace with your Kraken API Secret
+import os
+from dotenv import load_dotenv
 
-# Toggle between 'live', 'paper_trade', 'mock'
-TRADING_MODE = "mock"  # Modes: 'live', 'paper_trade', 'mock'
+load_dotenv()
+
+API_KEY = os.getenv('API_KEY')
+API_SECRET = os.getenv('API_SECRET')
+TRADING_MODE = os.getenv('TRADING_MODE', 'mock')
 
 # API Endpoint Configuration
 API_URL = (
