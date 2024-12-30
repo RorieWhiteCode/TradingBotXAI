@@ -3,6 +3,22 @@
 # ============================================
 import os
 from dotenv import load_dotenv
+import requests
+from config import API_URL, API_KEY, API_SECRET
+
+
+def test_api_connection():
+    headers = {
+        "API-Key": API_KEY,
+        "API-Sign": API_SECRET
+    }
+    response = requests.get(f"{API_URL}/derivatives/api/v3/openpositions", headers=headers)
+    if response.status_code == 200:
+        print(" Connected to Kraken Futures API successfully!")
+        print(response.json())
+    else:
+        print(f"API Connection Failed. Status Code: {response.status_code}")
+        print(response.text)
 
 load_dotenv()
 
