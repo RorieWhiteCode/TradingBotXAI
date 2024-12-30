@@ -63,21 +63,49 @@ Access at: http://127.0.0.1:5000/
 
 ## Structure
 ```text
-/Stock-Trading-Bot/
-├── config/          # API keys, global settings
-├── data/            # Historical and live data storage
-├── modules/         
-│   ├── sentiment/   # Sentiment analysis logic
-│   ├── backtesting/ # Strategy validation tools
-│   ├── ml/          # ML training and inference
-│   ├── strategy/    # Trading strategies
-│   ├── execution/   # Trade execution and data handling
-│   ├── dashboard/   # Real-time dashboard
-├── tests/           # Unit and integration tests
-├── logs/            # Trade and error logs
-├── bot.py           # Main trading bot controller
-├── requirements.txt # Dependencies
-└── README.md        # Documentation
+├── TradingBotXAI-main/
+│   ├── README.md
+│   ├── bot.py
+│   ├── requirements.txt
+│   ├── backtesting/
+│   │   ├── __init__.py
+│   │   ├── backtester.py
+│   ├── config/
+│   │   ├── config.py
+│   │   ├── configuration.env
+│   ├── dashboard/
+│   │   ├── __init__.py
+│   │   ├── app.py
+│   │   ├── static/
+│   │   │   ├── scripts.js
+│   │   ├── templates/
+│   │   │   ├── index.html
+│   ├── data/
+│   │   ├── mock_data_handler.py
+│   │   ├── datasets/
+│   │   │   ├── ADAUSD.csv
+│   │   │   ├── Information.txt
+│   │   │   ├── LTCUSD.csv
+│   │   ├── live/
+│   │   │   ├── current_data.json
+│   │   │   ├── data_handler.py
+│   │   ├── mock/
+│   │   │   ├── mock_data.json
+│   ├── execution/
+│   │   ├── KrakenAPI.py
+│   │   ├── __init__.py
+│   │   ├── data_handler.py
+│   │   ├── trade_executor.py
+│   ├── ml/
+│   │   ├── ML.py
+│   │   ├── __init__.py
+│   │   ├── ml_predictor.py
+│   ├── portfolio/
+│   │   ├── __init__.py
+│   │   ├── portfolio.py
+│   ├── risk/
+│   │   ├── risk_manager.py
+
 ```
 
 
