@@ -1,0 +1,10 @@
+{
+  "ADAUSD": {
+    "price": 1.25,
+    "volume": 1500
+  },
+  "LTCUSD": {
+    "price": 120.50,
+    "volume": 800
+  }
+}
