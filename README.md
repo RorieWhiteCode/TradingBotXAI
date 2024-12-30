@@ -41,9 +41,9 @@ pip install -r requirements.txt
 
 ## Set Environment Variables
 ```plaintext
-KRAKEN_API_KEY=your_api_key
-KRAKEN_PRIVATE_KEY=your_private_key
-DEPLOYMENT_ENV=development
+KRAKEN_API_KEY = your_api_key
+KRAKEN_PRIVATE_KEY = your_private_key
+DEPLOYMENT_ENV = development
 TRAINING_MODE = {mock, paper-trade, live}
 ```
 
