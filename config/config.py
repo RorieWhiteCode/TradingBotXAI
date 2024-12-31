@@ -3,22 +3,6 @@
 # ============================================
 import os
 from dotenv import load_dotenv
-import requests
-from config import API_URL, API_KEY, API_SECRET
-
-
-def test_api_connection():
-    headers = {
-        "API-Key": API_KEY,
-        "API-Sign": API_SECRET
-    }
-    response = requests.get(f"{API_URL}/derivatives/api/v3/openpositions", headers=headers)
-    if response.status_code == 200:
-        print(" Connected to Kraken Futures API successfully!")
-        print(response.json())
-    else:
-        print(f"API Connection Failed. Status Code: {response.status_code}")
-        print(response.text)
 
 load_dotenv()
 
@@ -33,6 +17,8 @@ elif TRADING_MODE == "paper_trade":
     API_URL = os.getenv('API_URL', 'https://demo-futures.kraken.com')
 elif TRADING_MODE == "live":
     API_URL = "https://futures.kraken.com"
+
+
 # ============================================
 # Portfolio and Leverage Settings
 # ============================================
@@ -69,8 +55,7 @@ LOG_FILE = "./logs/tradebot.log"  # Log file location
 NOTIFICATIONS = {
     "email": False,
     "telegram": True,
-    "sms": False
-}
+    "sms": False}
 
 # ============================================
 # Execution and Throttling
@@ -81,8 +66,6 @@ API_CALL_DELAY = 1  # Delay between API calls (in seconds)
 # ============================================
 # Mock and Data Paths
 # ============================================
-import os
-
 BASE_DATA_PATH = os.path.join(os.getcwd(), 'data')
 HISTORICAL_DATA_PATH = os.path.join(BASE_DATA_PATH, 'historical')
 LIVE_DATA_PATH = os.path.join(BASE_DATA_PATH, 'live')
