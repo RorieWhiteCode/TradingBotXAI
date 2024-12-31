@@ -1,10 +1,9 @@
 # risk_manager.py
 import time
 from typing import Dict, Union
-from data_handler import KrakenDataHandler
-from trade_executor import TradeExecutor
-from portfolio import PortfolioManager
-from config import STOP_LOSS, TAKE_PROFIT, MAX_DAILY_DRAWDOWN, RISK_PER_TRADE, BASE_CURRENCY
+from execution.data_handler import KrakenDataHandler
+from execution.trade_executor import TradeExecutor
+from config.config import STOP_LOSS, TAKE_PROFIT, MAX_DAILY_DRAWDOWN, RISK_PER_TRADE, BASE_CURRENCY
 
 
 class RiskManager:
