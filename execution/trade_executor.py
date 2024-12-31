@@ -2,7 +2,8 @@
 import time
 import krakenex
 from typing import Dict, Union
-from config import API_KEY, API_SECRET, ORDER_TYPE, API_CALL_DELAY
+
+from config.config import API_KEY, API_SECRET, ALLOWED_PAIRS, API_CALL_DELAY
 
 
 class TradeExecutor:
