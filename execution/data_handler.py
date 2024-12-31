@@ -5,7 +5,8 @@ import pandas as pd
 from typing import Dict, Union
 
 # Import configuration settings
-from config import API_KEY, API_SECRET, ALLOWED_PAIRS, API_CALL_DELAY
+
+from config.config import API_KEY, API_SECRET, ALLOWED_PAIRS, API_CALL_DELAY
 
 
 class KrakenDataHandler:
