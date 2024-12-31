@@ -1,8 +1,10 @@
 # portfolio.py
 import pandas as pd
 from typing import Dict, Union
-from data_handler import KrakenDataHandler
-from config import LEVERAGE, MAX_PORTFOLIO_EXPOSURE, RESERVE_BALANCE, BASE_CURRENCY
+from execution.data_handler import KrakenDataHandler
+from config.config import LEVERAGE, MAX_PORTFOLIO_EXPOSURE, RESERVE_BALANCE, BASE_CURRENCY
+from risk.risk_manager import RiskManager
+
 
 
 class PortfolioManager:
