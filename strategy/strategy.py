@@ -5,6 +5,122 @@ import numpy as np
 class TechnicalStrategy:
     def __init__(self):
         self.data = pd.DataFrame()
+
+
+       # 1. EMA (Exponential Moving Average)
+    def ema_strategy(self, short_window: int = 12, long_window: int = 26) -> str:
+        self.data['ema_short'] = self.data['close'].ewm(span=short_window).mean()
+        self.data['ema_long'] = self.data['close'].ewm(span=long_window).mean()
+        
+        if self.data['ema_short'].iloc[-1] > self.data['ema_long'].iloc[-1]:
+            return 'Buy'
+        elif self.data['ema_short'].iloc[-1] < self.data['ema_long'].iloc[-1]:
+            return 'Sell'
+        return 'Hold'
+
+    # 2. Parabolic SAR
+    def parabolic_sar_strategy(self) -> str:
+        self.data['psar'] = self.data['close'].shift(1) * 0.02
+        if self.data['close'].iloc[-1] > self.data['psar'].iloc[-1]:
+            return 'Buy'
+        else:
+            return 'Sell'
+
+    # 3. Ichimoku Cloud
+    def ichimoku_strategy(self) -> str:
+        self.data['tenkan_sen'] = self.data['close'].rolling(window=9).mean()
+        self.data['kijun_sen'] = self.data['close'].rolling(window=26).mean()
+        self.data['senkou_span_a'] = ((self.data['tenkan_sen'] + self.data['kijun_sen']) / 2).shift(26)
+        self.data['senkou_span_b'] = self.data['close'].rolling(window=52).mean().shift(26)
+        
+        if self.data['close'].iloc[-1] > self.data['senkou_span_a'].iloc[-1]:
+            return 'Buy'
+        elif self.data['close'].iloc[-1] < self.data['senkou_span_b'].iloc[-1]:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    # MOMENTUM INDICATORS
+    # ===============================
+    # 4. Williams %R
+    def williams_r_strategy(self, period: int = 14) -> str:
+        self.data['williams_r'] = (self.data['high'].rolling(period).max() - self.data['close']) / (
+            self.data['high'].rolling(period).max() - self.data['low'].rolling(period).min()) * -100
+        
+        if self.data['williams_r'].iloc[-1] > -20:
+            return 'Sell'
+        elif self.data['williams_r'].iloc[-1] < -80:
+            return 'Buy'
+        return 'Hold'
+
+    # 5. Commodity Channel Index (CCI)
+    def cci_strategy(self, period: int = 20) -> str:
+        self.data['tp'] = (self.data['high'] + self.data['low'] + self.data['close']) / 3
+        self.data['cci'] = (self.data['tp'] - self.data['tp'].rolling(window=period).mean()) / (
+            0.015 * self.data['tp'].rolling(window=period).std())
+        
+        if self.data['cci'].iloc[-1] > 100:
+            return 'Sell'
+        elif self.data['cci'].iloc[-1] < -100:
+            return 'Buy'
+        return 'Hold'
+
+    # 6. Momentum Indicator
+    def momentum_strategy(self, period: int = 10) -> str:
+        self.data['momentum'] = self.data['close'].diff(period)
+        if self.data['momentum'].iloc[-1] > 0:
+            return 'Buy'
+        elif self.data['momentum'].iloc[-1] < 0:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    # VOLATILITY INDICATORS
+    # ===============================
+    # 7. Keltner Channel
+    def keltner_strategy(self) -> str:
+        self.data['ema'] = self.data['close'].ewm(span=20).mean()
+        self.data['atr'] = self.data['close'].diff().abs().rolling(window=14).mean()
+        self.data['upper'] = self.data['ema'] + 2 * self.data['atr']
+        self.data['lower'] = self.data['ema'] - 2 * self.data['atr']
+        
+        if self.data['close'].iloc[-1] > self.data['upper'].iloc[-1]:
+            return 'Sell'
+        elif self.data['close'].iloc[-1] < self.data['lower'].iloc[-1]:
+            return 'Buy'
+        return 'Hold'
+
+    # 8. Donchian Channel
+    def donchian_strategy(self, period: int = 20) -> str:
+        self.data['upper'] = self.data['high'].rolling(window=period).max()
+        self.data['lower'] = self.data['low'].rolling(window=period).min()
+        
+        if self.data['close'].iloc[-1] > self.data['upper'].iloc[-1]:
+            return 'Buy'
+        elif self.data['close'].iloc[-1] < self.data['lower'].iloc[-1]:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    # SUPPORT/RESISTANCE
+    # ===============================
+    # 9. Pivot Points
+    def pivot_points_strategy(self) -> str:
+        self.data['pivot'] = (self.data['high'] + self.data['low'] + self.data['close']) / 3
+        if self.data['close'].iloc[-1] > self.data['pivot'].iloc[-1]:
+            return 'Buy'
+        else:
+            return 'Sell'
+
+    # 10. Fibonacci Retracement
+    def fibonacci_strategy(self) -> str:
+        max_price = self.data['high'].max()
+        min_price = self.data['low'].min()
+        fib_level = min_price + (max_price - min_price) * 0.618
+        if self.data['close'].iloc[-1] > fib_level:
+            return 'Sell'
+        else:
+            return 'Buy'
       # ===============================
     def elliott_wave_strategy(self) -> str:
         """
