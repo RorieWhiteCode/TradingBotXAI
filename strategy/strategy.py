@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-
+#Decisions: weight of each strategy and custom thresholds for decision-making. ATR directly influence trade size?
 class TechnicalStrategy:
     def __init__(self):
         self.data = pd.DataFrame()
