@@ -287,20 +287,88 @@ class TechnicalStrategy:
     # ===============================
     # Combine Strategies into Utility Score
     # ===============================
-    def combined_strategy(self, pair: str) -> Dict[str, Any]:
+       def combined_strategy(self, pair: str) -> Dict[str, Any]:
+        """
+        Combine multiple technical indicators into a unified decision.
+        """
+        # Individual indicator signals
         rsi_signal = self.rsi_strategy(pair)
         ma_signal = self.ma_strategy(pair)
         macd_signal = self.macd_strategy()
         bollinger_signal = self.bollinger_strategy()
         stochastic_signal = self.stochastic_strategy()
         atr_value = self.atr_strategy()
+        ema_signal = self.ema_strategy()
+        parabolic_sar_signal = self.parabolic_sar_strategy()
+        ichimoku_signal = self.ichimoku_strategy()
+        williams_r_signal = self.williams_r_strategy()
+        cci_signal = self.cci_strategy()
+        momentum_signal = self.momentum_strategy()
+        keltner_signal = self.keltner_strategy()
+        donchian_signal = self.donchian_strategy()
+        pivot_signal = self.pivot_points_strategy()
+        fibonacci_signal = self.fibonacci_strategy()
         
-        signals = [rsi_signal, ma_signal, macd_signal, bollinger_signal, stochastic_signal]
-        signal_score = sum([1 if s == 'Buy' else -1 if s == 'Sell' else 0 for s in signals])
+        # Map signals to numerical scores
+        signal_mapping = {
+            'Strong Buy': 2,
+            'Buy': 1,
+            'Hold': 0,
+            'Sell': -1,
+            'Strong Sell': -2
+        }
+
+        # Aggregate all signals with their mapped scores
+        signal_scores = [
+            signal_mapping.get(rsi_signal, 0),
+            signal_mapping.get(ma_signal, 0),
+            signal_mapping.get(macd_signal, 0),
+            signal_mapping.get(bollinger_signal, 0),
+            signal_mapping.get(stochastic_signal, 0),
+            signal_mapping.get(ema_signal, 0),
+            signal_mapping.get(parabolic_sar_signal, 0),
+            signal_mapping.get(ichimoku_signal, 0),
+            signal_mapping.get(williams_r_signal, 0),
+            signal_mapping.get(cci_signal, 0),
+            signal_mapping.get(momentum_signal, 0),
+            signal_mapping.get(keltner_signal, 0),
+            signal_mapping.get(donchian_signal, 0),
+            signal_mapping.get(pivot_signal, 0),
+            signal_mapping.get(fibonacci_signal, 0)
+        ]
+
+        # Calculate final signal score
+        final_signal_score = sum(signal_scores)
+        
+        # Decision thresholds
+        if final_signal_score > 5:
+            action = 'buy'
+        elif final_signal_score < -5:
+            action = 'sell'
+        else:
+            action = 'hold'
         
         return {
-            'action': 'buy' if signal_score > 2 else 'sell' if signal_score < -2 else 'hold',
-            'volatility': atr_value
+            'action': action,
+            'volatility': atr_value,
+            'score': final_signal_score,
+            'details': {
+                'rsi': rsi_signal,
+                'ma': ma_signal,
+                'macd': macd_signal,
+                'bollinger': bollinger_signal,
+                'stochastic': stochastic_signal,
+                'ema': ema_signal,
+                'parabolic_sar': parabolic_sar_signal,
+                'ichimoku': ichimoku_signal,
+                'williams_r': williams_r_signal,
+                'cci': cci_signal,
+                'momentum': momentum_signal,
+                'keltner': keltner_signal,
+                'donchian': donchian_signal,
+                'pivot': pivot_signal,
+                'fibonacci': fibonacci_signal
+            }
         }
 
 
