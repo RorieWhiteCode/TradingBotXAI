@@ -5,7 +5,72 @@ import numpy as np
 class TechnicalStrategy:
     def __init__(self):
         self.data = pd.DataFrame()
+      # ===============================
+    def elliott_wave_strategy(self) -> str:
+        """
+        Identify Elliott Wave Patterns and make trading decisions.
+        """
+        if len(self.data) < 10:
+            return 'Hold'  # Insufficient data
+        
+        # Simple wave pattern detection (placeholder logic)
+        self.data['price_change'] = self.data['close'].diff()
+        upward_moves = (self.data['price_change'] > 0).sum()
+        downward_moves = (self.data['price_change'] < 0).sum()
+        
+        if upward_moves >= 5 and downward_moves >= 3:
+            return 'Buy'  # Wave 3 detected
+        elif downward_moves >= 5 and upward_moves >= 3:
+            return 'Sell'  # Wave C detected
+        else:
+            return 'Hold'
     
+    # ===============================
+    # Wyckoff Strategy
+    # ===============================
+    def wyckoff_strategy(self) -> str:
+        """
+        Analyze Wyckoff patterns and determine market phase.
+        """
+        if len(self.data) < 20:
+            return 'Hold'  # Insufficient data
+        
+        recent_lows = self.data['low'].rolling(window=5).min()
+        recent_highs = self.data['high'].rolling(window=5).max()
+        
+        current_price = self.data['close'].iloc[-1]
+        recent_low = recent_lows.iloc[-1]
+        recent_high = recent_highs.iloc[-1]
+        
+        # Detect Wyckoff Accumulation and Distribution
+        if current_price < recent_low * 1.05:
+            return 'Buy'  # Potential Accumulation phase (Spring)
+        elif current_price > recent_high * 0.95:
+            return 'Sell'  # Potential Distribution phase (Upthrust)
+        else:
+            return 'Hold'
+    
+    # ===============================
+    # Combined Strategy
+    # ===============================
+    def combined_strategy(self, pair: str) -> Dict[str, Any]:
+        """
+        Combine Elliott Wave, Wyckoff, and Technical Indicators.
+        """
+        elliott_signal = self.elliott_wave_strategy()
+        wyckoff_signal = self.wyckoff_strategy()
+        
+        signals = [elliott_signal, wyckoff_signal]
+        buy_signals = signals.count('Buy')
+        sell_signals = signals.count('Sell')
+        
+        if buy_signals >= 2:
+            return {'action': 'buy', 'reason': 'Elliott and Wyckoff alignment'}
+        elif sell_signals >= 2:
+            return {'action': 'sell', 'reason': 'Elliott and Wyckoff alignment'}
+        else:
+            return {'action': 'hold', 'reason': 'No strong alignment'}
+
     # ===============================
     # RSI Strategy
     # ===============================
