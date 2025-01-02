@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-#Decisions: weight of each strategy and custom thresholds for decision-making. ATR directly influence trade size?
+
 class TechnicalStrategy:
     def __init__(self):
         self.data = pd.DataFrame()
@@ -284,6 +284,102 @@ class TechnicalStrategy:
         
         return self.data['atr'].iloc[-1]
     
+
+    # ===============================
+    # Triple Moving Average Crossover 
+    # ===============================
+    def triple_ma_strategy(self, short_window: int = 5, medium_window: int = 15, long_window: int = 50) -> str:
+        self.data['short_ma'] = self.data['close'].rolling(window=short_window).mean()
+        self.data['medium_ma'] = self.data['close'].rolling(window=medium_window).mean()
+        self.data['long_ma'] = self.data['close'].rolling(window=long_window).mean()
+        
+        if self.data['short_ma'].iloc[-1] > self.data['medium_ma'].iloc[-1] > self.data['long_ma'].iloc[-1]:
+            return 'Buy'
+        elif self.data['short_ma'].iloc[-1] < self.data['medium_ma'].iloc[-1] < self.data['long_ma'].iloc[-1]:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    # Hull Moving Average (HMA)
+    # ===============================
+    def hma_strategy(self, period: int = 14) -> str:
+        half_length = int(period / 2)
+        sqrt_length = int(np.sqrt(period))
+        
+        self.data['hma'] = self.data['close'].rolling(half_length).mean() * 2 - self.data['close'].rolling(period).mean()
+        self.data['hma'] = self.data['hma'].rolling(sqrt_length).mean()
+        
+        if self.data['hma'].iloc[-1] > self.data['hma'].iloc[-2]:
+            return 'Buy'
+        elif self.data['hma'].iloc[-1] < self.data['hma'].iloc[-2]:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    # SuperTrend Indicator
+    # ===============================   
+    def supertrend_strategy(self, multiplier: float = 3, period: int = 14) -> str:
+        hl2 = (self.data['high'] + self.data['low']) / 2
+        atr = self.data['close'].diff().abs().rolling(window=period).mean()
+        self.data['supertrend'] = hl2 + (multiplier * atr)
+        
+        if self.data['close'].iloc[-1] > self.data['supertrend'].iloc[-1]:
+            return 'Buy'
+        elif self.data['close'].iloc[-1] < self.data['supertrend'].iloc[-1]:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    #  Rate of Change (ROC)
+    # ===============================      
+    def roc_strategy(self, period: int = 14) -> str:
+        self.data['roc'] = self.data['close'].pct_change(period) * 100
+        if self.data['roc'].iloc[-1] > 0:
+            return 'Buy'
+        elif self.data['roc'].iloc[-1] < 0:
+            return 'Sell'
+        return 'Hold'
+
+    # ===============================
+    # Moving Average Convergence Divergence Histogram (MACDH)
+    # ===============================   
+    def macd_histogram_strategy(self) -> str:
+        self.data['ema12'] = self.data['close'].ewm(span=12).mean()
+        self.data['ema26'] = self.data['close'].ewm(span=26).mean()
+        self.data['macd'] = self.data['ema12'] - self.data['ema26']
+        self.data['signal_line'] = self.data['macd'].ewm(span=9).mean()
+        self.data['macd_histogram'] = self.data['macd'] - self.data['signal_line']
+        
+        if self.data['macd_histogram'].iloc[-1] > 0:
+            return 'Buy'
+        elif self.data['macd_histogram'].iloc[-1] < 0:
+            return 'Sell'
+        return 'Hold'
+
+
+    # ===============================
+    # Relative Vigor Index (RVI)
+    # ===============================   
+    def rvi_strategy(self, period: int = 10) -> str:
+        self.data['rvi'] = ((self.data['close'] - self.data['open']) / (self.data['high'] - self.data['low'])).rolling(window=period).mean()
+        if self.data['rvi'].iloc[-1] > 0:
+            return 'Buy'
+        elif self.data['rvi'].iloc[-1] < 0:
+            return 'Sell'
+        return 'Hold'
+
+
+    # ===============================
+    # Chaikin Volatility Indicator
+    # ===============================       
+    def chaikin_volatility_strategy(self, period: int = 10) -> str:
+        self.data['volatility'] = (self.data['high'] - self.data['low']).rolling(window=period).mean()
+        if self.data['volatility'].iloc[-1] > self.data['volatility'].iloc[-2]:
+            return 'Sell'  # Market becoming unstable
+        elif self.data['volatility'].iloc[-1] < self.data['volatility'].iloc[-2]:
+            return 'Buy'  # Market stabilizing
+        return 'Hold'
+
     # ===============================
     # Combine Strategies into Utility Score
     # ===============================
@@ -308,42 +404,82 @@ class TechnicalStrategy:
         donchian_signal = self.donchian_strategy()
         pivot_signal = self.pivot_points_strategy()
         fibonacci_signal = self.fibonacci_strategy()
-        
+        triple_ma_signal = self.triple_ma_strategy()
+        hma_signal = self.hma_strategy()
+        supertrend_signal = self.supertrend_strategy()
+        roc_signal = self.roc_strategy()
+        macd_histogram_signal = self.macd_histogram_strategy()
+        rvi_signal = self.rvi_strategy()
+        chaikin_volatility_signal = self.chaikin_volatility_strategy()
+        mfi_signal = self.mfi_strategy()
+        beta_signal = self.beta_strategy(market_returns=pd.Series(np.random.uniform(-0.05, 0.05, size=200)))
+
         # Map signals to numerical scores
         signal_mapping = {
             'Strong Buy': 2,
             'Buy': 1,
             'Hold': 0,
             'Sell': -1,
-            'Strong Sell': -2
-        }
+            'Strong Sell': -2}
+        
+        # Indicator weights (you can fine-tune these based on importance)
+        indicator_weights = {
+            'rsi': 0.1,
+            'ma': 0.1,
+            'macd': 0.1,
+            'bollinger': 0.05,
+            'stochastic': 0.05,
+            'ema': 0.1,
+            'parabolic_sar': 0.05,
+            'ichimoku': 0.05,
+            'williams_r': 0.05,
+            'cci': 0.05,
+            'momentum': 0.05,
+            'keltner': 0.05,
+            'donchian': 0.05,
+            'pivot': 0.05,
+            'fibonacci': 0.05,
+            'triple_ma': 0.05,
+            'hma': 0.05,
+            'supertrend': 0.05,
+            'roc': 0.05,
+            'macd_histogram': 0.05,
+            'rvi': 0.05,
+            'chaikin_volatility': 0.05,
+            'mfi': 0.05,
+            'beta': 0.05}
 
-        # Aggregate all signals with their mapped scores
-        signal_scores = [
-            signal_mapping.get(rsi_signal, 0),
-            signal_mapping.get(ma_signal, 0),
-            signal_mapping.get(macd_signal, 0),
-            signal_mapping.get(bollinger_signal, 0),
-            signal_mapping.get(stochastic_signal, 0),
-            signal_mapping.get(ema_signal, 0),
-            signal_mapping.get(parabolic_sar_signal, 0),
-            signal_mapping.get(ichimoku_signal, 0),
-            signal_mapping.get(williams_r_signal, 0),
-            signal_mapping.get(cci_signal, 0),
-            signal_mapping.get(momentum_signal, 0),
-            signal_mapping.get(keltner_signal, 0),
-            signal_mapping.get(donchian_signal, 0),
-            signal_mapping.get(pivot_signal, 0),
-            signal_mapping.get(fibonacci_signal, 0)
-        ]
-
-        # Calculate final signal score
-        final_signal_score = sum(signal_scores)
+        # Aggregate signals with weights
+        weighted_score = sum([
+            signal_mapping.get(rsi_signal, 0) * indicator_weights['rsi'],
+            signal_mapping.get(ma_signal, 0) * indicator_weights['ma'],
+            signal_mapping.get(macd_signal, 0) * indicator_weights['macd'],
+            signal_mapping.get(bollinger_signal, 0) * indicator_weights['bollinger'],
+            signal_mapping.get(stochastic_signal, 0) * indicator_weights['stochastic'],
+            signal_mapping.get(ema_signal, 0) * indicator_weights['ema'],
+            signal_mapping.get(parabolic_sar_signal, 0) * indicator_weights['parabolic_sar'],
+            signal_mapping.get(ichimoku_signal, 0) * indicator_weights['ichimoku'],
+            signal_mapping.get(williams_r_signal, 0) * indicator_weights['williams_r'],
+            signal_mapping.get(cci_signal, 0) * indicator_weights['cci'],
+            signal_mapping.get(momentum_signal, 0) * indicator_weights['momentum'],
+            signal_mapping.get(keltner_signal, 0) * indicator_weights['keltner'],
+            signal_mapping.get(donchian_signal, 0) * indicator_weights['donchian'],
+            signal_mapping.get(pivot_signal, 0) * indicator_weights['pivot'],
+            signal_mapping.get(fibonacci_signal, 0) * indicator_weights['fibonacci'],
+            signal_mapping.get(triple_ma_signal, 0) * indicator_weights['triple_ma'],
+            signal_mapping.get(hma_signal, 0) * indicator_weights['hma'],
+            signal_mapping.get(supertrend_signal, 0) * indicator_weights['supertrend'],
+            signal_mapping.get(roc_signal, 0) * indicator_weights['roc'],
+            signal_mapping.get(macd_histogram_signal, 0) * indicator_weights['macd_histogram'],
+            signal_mapping.get(rvi_signal, 0) * indicator_weights['rvi'],
+            signal_mapping.get(chaikin_volatility_signal, 0) * indicator_weights['chaikin_volatility'],
+            signal_mapping.get(mfi_signal, 0) * indicator_weights['mfi'],
+            signal_mapping.get(beta_signal, 0) * indicator_weights['beta']])
         
         # Decision thresholds
-        if final_signal_score > 5:
+        if weighted_score > 1.0:
             action = 'buy'
-        elif final_signal_score < -5:
+        elif weighted_score < -1.0:
             action = 'sell'
         else:
             action = 'hold'
@@ -351,7 +487,7 @@ class TechnicalStrategy:
         return {
             'action': action,
             'volatility': atr_value,
-            'score': final_signal_score,
+            'score': round(weighted_score, 2),
             'details': {
                 'rsi': rsi_signal,
                 'ma': ma_signal,
@@ -367,7 +503,16 @@ class TechnicalStrategy:
                 'keltner': keltner_signal,
                 'donchian': donchian_signal,
                 'pivot': pivot_signal,
-                'fibonacci': fibonacci_signal
+                'fibonacci': fibonacci_signal,
+                'triple_ma': triple_ma_signal,
+                'hma': hma_signal,
+                'supertrend': supertrend_signal,
+                'roc': roc_signal,
+                'macd_histogram': macd_histogram_signal,
+                'rvi': rvi_signal,
+                'chaikin_volatility': chaikin_volatility_signal,
+                'mfi': mfi_signal,
+                'beta': beta_signal
             }
         }
 
@@ -378,7 +523,12 @@ if __name__ == '__main__':
     strategy.data = pd.DataFrame({
         'close': np.random.uniform(50, 150, size=200),
         'high': np.random.uniform(150, 200, size=200),
-        'low': np.random.uniform(40, 50, size=200)
+        'low': np.random.uniform(40, 50, size=200),
+        'open': np.random.uniform(50, 150, size=200),
+        'volume': np.random.uniform(1000, 5000, size=200)
+    })
+    final_decision = strategy.combined_strategy('ADA/USD')
+    print(f"[INFO] Final Trading Action: {final_decision}")
     })
     final_decision = strategy.combined_strategy('ADA/USD')
     print(f"[INFO] Final Trading Action: {final_decision}")
