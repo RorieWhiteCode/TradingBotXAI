@@ -6,7 +6,7 @@ class TechnicalStrategy:
     def __init__(self):
         self.data = pd.DataFrame()
 
-       # 1. EMA (Exponential Moving Average)
+    # 1. EMA (Exponential Moving Average)
     def ema_strategy(self, short_window: int = 12, long_window: int = 26) -> str:
         self.data['ema_short'] = self.data['close'].ewm(span=short_window).mean()
         self.data['ema_long'] = self.data['close'].ewm(span=long_window).mean()
@@ -38,9 +38,6 @@ class TechnicalStrategy:
             return 'Sell'
         return 'Hold'
 
-    # ===============================
-    # MOMENTUM INDICATORS
-    # ===============================
     # 4. Williams %R
     def williams_r_strategy(self, period: int = 14) -> str:
         self.data['williams_r'] = (self.data['high'].rolling(period).max() - self.data['close']) / (
@@ -73,9 +70,6 @@ class TechnicalStrategy:
             return 'Sell'
         return 'Hold'
 
-    # ===============================
-    # VOLATILITY INDICATORS
-    # ===============================
     # 7. Keltner Channel
     def keltner_strategy(self) -> str:
         self.data['ema'] = self.data['close'].ewm(span=20).mean()
@@ -100,9 +94,6 @@ class TechnicalStrategy:
             return 'Sell'
         return 'Hold'
 
-    # ===============================
-    # SUPPORT/RESISTANCE
-    # ===============================
     # 9. Pivot Points
     def pivot_points_strategy(self) -> str:
         self.data['pivot'] = (self.data['high'] + self.data['low'] + self.data['close']) / 3
@@ -120,14 +111,12 @@ class TechnicalStrategy:
             return 'Sell'
         else:
             return 'Buy'
+
     # 11. Elliot Waves 
     def elliott_wave_strategy(self) -> str:
-        """
-        Identify Elliott Wave Patterns and make trading decisions.
-        """
+        #Identify Elliott Wave Patterns and make trading decisions.
         if len(self.data) < 10:
             return 'Hold'  # Insufficient data
-        
         # Simple wave pattern detection (placeholder logic)
         self.data['price_change'] = self.data['close'].diff()
         upward_moves = (self.data['price_change'] > 0).sum()
@@ -140,22 +129,16 @@ class TechnicalStrategy:
         else:
             return 'Hold'
 
-
     # 12. Wyckoff Distrubition Strategy 
     def wyckoff_strategy(self) -> str:
-        """
-        Analyze Wyckoff patterns and determine market phase.
-        """
+        #Analyze Wyckoff patterns and determine market phase.
         if len(self.data) < 20:
             return 'Hold'  # Insufficient data
-        
         recent_lows = self.data['low'].rolling(window=5).min()
         recent_highs = self.data['high'].rolling(window=5).max()
-        
         current_price = self.data['close'].iloc[-1]
         recent_low = recent_lows.iloc[-1]
         recent_high = recent_highs.iloc[-1]
-        
         # Detect Wyckoff Accumulation and Distribution
         if current_price < recent_low * 1.05:
             return 'Buy'  # Potential Accumulation phase (Spring)
@@ -163,8 +146,7 @@ class TechnicalStrategy:
             return 'Sell'  # Potential Distribution phase (Upthrust)
         else:
             return 'Hold'
-  
-   
+    
     # 13. Relative Strength Index
     def rsi_strategy(self, pair: str, period: int = 14) -> str:
         self.data['rsi'] = self.calculate_rsi(self.data['close'], period)
@@ -185,7 +167,6 @@ class TechnicalStrategy:
         rs = gain / loss
         return 100 - (100 / (1 + rs))
     
-
     # 14. Moving Average Crossover Strategy
     def ma_strategy(self, pair: str, short_window: int = 50, long_window: int = 200) -> str:
         self.data['short_ma'] = self.data['close'].rolling(window=short_window).mean()
@@ -198,7 +179,6 @@ class TechnicalStrategy:
         else:
             return 'Hold'
     
-   
     # 15. MACD Strategy
     def macd_strategy(self) -> str:
         self.data['ema12'] = self.data['close'].ewm(span=12).mean()
@@ -229,7 +209,6 @@ class TechnicalStrategy:
         else:
             return 'Hold'
     
-  
     # 17. Stochastic Oscillator Strategy
     def stochastic_strategy(self, period: int = 14) -> str:
         self.data['lowest_low'] = self.data['low'].rolling(window=period).min()
@@ -243,7 +222,6 @@ class TechnicalStrategy:
         else:
             return 'Hold'
     
-    
     # 18. Average True Range (ATR) Strategy
     def atr_strategy(self, period: int = 14) -> float:
         self.data['high_low'] = self.data['high'] - self.data['low']
@@ -253,8 +231,6 @@ class TechnicalStrategy:
         self.data['atr'] = self.data['true_range'].rolling(window=period).mean()
         
         return self.data['atr'].iloc[-1]
-    
-
     
     # 19. Triple Moving Average Crossover 
     def triple_ma_strategy(self, short_window: int = 5, medium_window: int = 15, long_window: int = 50) -> str:
@@ -282,7 +258,6 @@ class TechnicalStrategy:
             return 'Sell'
         return 'Hold'
 
-
     # 21. SuperTrend Indicator
     def supertrend_strategy(self, multiplier: float = 3, period: int = 14) -> str:
         hl2 = (self.data['high'] + self.data['low']) / 2
@@ -295,7 +270,6 @@ class TechnicalStrategy:
             return 'Sell'
         return 'Hold'
 
-
     # 23. Rate of Change (ROC)
     def roc_strategy(self, period: int = 14) -> str:
         self.data['roc'] = self.data['close'].pct_change(period) * 100
@@ -304,7 +278,6 @@ class TechnicalStrategy:
         elif self.data['roc'].iloc[-1] < 0:
             return 'Sell'
         return 'Hold'
-
 
     # 24. Moving Average Convergence Divergence Histogram (MACDH)
     def macd_histogram_strategy(self) -> str:
@@ -338,7 +311,6 @@ class TechnicalStrategy:
             return 'Buy'  # Market stabilizing
         return 'Hold'
 
-    
     # *Combine Strategies into Utility Score*
     def combined_strategy(self, pair: str) -> Dict[str, Any]:
         
@@ -380,7 +352,7 @@ class TechnicalStrategy:
                              'cci': 0.05,'momentum': 0.05,'keltner': 0.05,'donchian': 0.05,
                              'pivot': 0.05,'fibonacci': 0.05,'triple_ma': 0.05,'hma': 0.05,'supertrend': 0.05,
                              'roc': 0.05,'macd_histogram': 0.05,'rvi': 0.05,'chaikin_volatility': 0.05,
-                             'mfi': 0.05,'beta': 0.05      }
+                             'mfi': 0.05,'beta': 0.05}
 
         # Aggregate signals with weights
         weighted_score = sum([
@@ -416,7 +388,6 @@ class TechnicalStrategy:
             action = 'sell'
         else:
             action = 'hold'
-        
         return {
             'action': action,
             'volatility': atr_value,
