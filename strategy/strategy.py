@@ -313,9 +313,6 @@ class TechnicalStrategy:
 
     # *Combine Strategies into Utility Score*
     def combined_strategy(self, pair: str) -> Dict[str, Any]:
-        
-        #Combine multiple technical indicators into a unified decision.
-       
         # Individual indicator signals
         rsi_signal = self.rsi_strategy(pair)
         ma_signal = self.ma_strategy(pair)
@@ -342,10 +339,8 @@ class TechnicalStrategy:
         chaikin_volatility_signal = self.chaikin_volatility_strategy()
         mfi_signal = self.mfi_strategy()
         beta_signal = self.beta_strategy(market_returns=pd.Series(np.random.uniform(-0.05, 0.05, size=200)))
-
         # Map signals to numerical scores
         signal_mapping = {'Strong Buy': 2,'Buy': 1,'Hold': 0,'Sell': -1,'Strong Sell': -2}
-        
         # Indicator weights (you can fine-tune these based on importance)
         indicator_weights = {'rsi': 0.1,'ma': 0.1,'macd': 0.1,'bollinger': 0.05,'stochastic': 0.05,
                              'ema': 0.1,'parabolic_sar': 0.05,'ichimoku': 0.05,'williams_r': 0.05,
@@ -353,7 +348,6 @@ class TechnicalStrategy:
                              'pivot': 0.05,'fibonacci': 0.05,'triple_ma': 0.05,'hma': 0.05,'supertrend': 0.05,
                              'roc': 0.05,'macd_histogram': 0.05,'rvi': 0.05,'chaikin_volatility': 0.05,
                              'mfi': 0.05,'beta': 0.05}
-
         # Aggregate signals with weights
         weighted_score = sum([
             signal_mapping.get(rsi_signal, 0) * indicator_weights['rsi'],
@@ -380,7 +374,6 @@ class TechnicalStrategy:
             signal_mapping.get(chaikin_volatility_signal, 0) * indicator_weights['chaikin_volatility'],
             signal_mapping.get(mfi_signal, 0) * indicator_weights['mfi'],
             signal_mapping.get(beta_signal, 0) * indicator_weights['beta']])
-        
         # Decision thresholds
         if weighted_score > 1.0:
             action = 'buy'
